@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('endereco_id')->unsigned();
             $table->enum('cargos', ['ATENDENTE','EQUIPE APOIO','COZINHEIRO','ASG','SEGURANÇA','ENFERMEIRO','SECRETARIA','ADMINISTRADOR','TI'])->default('ATENDENTE');
             $table->string('numero_endereco', 10)->nullable();
+            $table->date('data_nascimento');
             $table->boolean('ativo')->default(1);
             $table->timestamps();
             $table->foreign('instituicao_id')->references('id')->on('instituicoes')->onDelete('cascade');
