@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('instituicao_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('endereco_id')->unsigned();
-            $table->enum('cargos', ['ATENDENTE','EQUIPE APOIO','COZINHEIRO','ASG','SEGURANÇA','ENFERMEIRO','SECRETARIA','ADMINISTRADOR','TI'])->default('ATENDENTE');
+            $table->enum('cargo', ['ATENDENTE','EQUIPE APOIO','COZINHEIRO','ASG','SEGURANÇA','ENFERMEIRO','SECRETARIA','ADMINISTRADOR','TI'])->default('ATENDENTE');
             $table->string('numero_endereco', 10)->nullable();
             $table->date('data_nascimento');
             $table->boolean('ativo')->default(1);

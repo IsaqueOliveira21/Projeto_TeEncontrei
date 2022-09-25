@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
-            $table->enum('tipo_logradouro', ['Rua','Avenida', 'Travessa', 'Praça'])->default('Rua');
             $table->char('cep', 9);
+            $table->enum('tipo_logradouro', ['Rua','Avenida', 'Travessa', 'Praça'])->default('Rua');
+            $table->string('logradouro');
+            $table->string('bairro');
             $table->string('cidade');
             $table->char('uf', 2);
             $table->timestamps();
