@@ -4,79 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
-     * @param String $email
-     * @param String $password
-     * @return string
+     * @return Application|Factory|View
      */
-    public function login(string $email, string $password): string
+    public function formLogin(): View|Factory|Application
     {
-        return "E-mail: $email ; Password: $password";
+        return view('login');
     }
-
 
     /**
-     * @param Request $request
-     * @return User
      * @throws Exception
      */
-    public function store(Request $request): User
+    public function postLogin(Request $request): View|Factory|RedirectResponse|Application
     {
-        $password = !is_null($request->password) ? bcrypt($request->password) : bcrypt('senha');
         try {
-            $request->validate(
-                [
-                    'name' => 'required|min:1|string',
-                    'last_name' => 'required|min:1|string',
-                    'email' => 'required|unique:users|email',
-                    'password' => 'nullable|string|max:12'
-                ]
-            );
-            // dd($validacao);
-            return User::create([
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'password' => $request->password
-            ]);
-            /* $user = new User();
-             $user->name = $request->name;
-             $user->last_name = $request->last_name;
-             $user->email = $request->email;
-             $user->password = $password;
-             $user->save();
-             return $user; */
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect()->route('administracao.restrita');
+            } else {
+                // return $this->formLogin();
+                return view('login', ['mensagem' => 'Login ou Senha invalidos!']);
+            }
         } catch (Exception $e) {
-            throw new Exception("{$e->getMessage()}, {$e->getLine()}}");
+            throw new Exception($e->getMessage());
         }
     }
 
-    public function update(User $user, Request $request): User
+    /**
+     * @return RedirectResponse
+     */
+    public function logout(): RedirectResponse
     {
-        try {
-            $request->validate(
-                [
-                    'name' => 'required|min:1|string',
-                    'last_name' => 'required|min:1|string',
-                    'email' => 'required|unique:users|email',
-                    'password' => 'nullable|string|max:12'
-                ]
-            );
-            $password = !is_null($request->password) ? bcrypt($request->password) : bcrypt('senha');
-            //$user = User::findOrFail($id);
-            $user->name = $request->name;
-            $user->last_name = $request->last_name;
-            $user->email = $request->email;
-            $user->password = $password;
-            $user->save();
-            return $user;
-        } catch (Exception $e) {
-            throw new Exception("{$e->getMessage()}, {$e->getLine()}}");
-        }
+        Auth::logout();
+        return redirect()->route('user.login');
+    }
 
+    /**
+     * @return RedirectResponse
+     */
+    public function naoAutorizado(): RedirectResponse
+    {
+        //dd('Não Autorizado!');
+        return redirect()->route('user.login');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function administracaoRestrita(): View|Factory|Application
+    {
+        return view('administracao.restrita');
     }
 }
