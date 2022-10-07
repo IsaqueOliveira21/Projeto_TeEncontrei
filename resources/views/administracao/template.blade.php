@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>::ACHEI AQUI - Administração::</title>
+
+    <meta name="description"
+          content="">
+    <meta name="author" content="Isaque Oliveira">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{{asset('assets/media/favicons/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{asset('assets/media/favicons/favicon-192x192.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/media/favicons/apple-touch-icon-180x180.png')}}">
+    <!-- END Icons -->
+
+    <!-- Stylesheets -->
+    <!-- Fonts and Dashmix framework -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" id="css-main" href="{{asset('assets/css/dashmix.min.css')}}">
+    <!-- END Stylesheets -->
+</head>
+<body>
+<div id="page-container"
+     class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
+
+    <nav id="sidebar" aria-label="Main Navigation">
+        <!-- Side Header -->
+        <div class="bg-header-dark">
+            <div class="content-header bg-white-5">
+                <!-- Logo -->
+                <a class="fw-semibold text-white tracking-wide" href="#">
+              <span class="smini-visible">
+                A<span class="opacity-75">a</span>
+              </span>
+                    <span class="smini-hidden">
+                Achei<span class="opacity-75">Aqui</span>
+              </span>
+                </a>
+                <!-- END Logo -->
+
+                <!-- Options -->
+                <div>
+                    <!-- Toggle Sidebar Style -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
+                    <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
+                            data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on"
+                            onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');">
+                        <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
+                    </button>
+                    <!-- END Toggle Sidebar Style -->
+
+                    <!-- Dark Mode -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
+                            data-target="#dark-mode-toggler" data-class="far fa"
+                            onclick="Dashmix.layout('dark_mode_toggle');">
+                        <i class="far fa-moon" id="dark-mode-toggler"></i>
+                    </button>
+                    <!-- END Dark Mode -->
+
+                    <!-- Close Sidebar, Visible only on mobile screens -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
+                            data-action="sidebar_close">
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                    <!-- END Close Sidebar -->
+                </div>
+                <!-- END Options -->
+            </div>
+        </div>
+        <!-- END Side Header -->
+
+        <!-- Sidebar Scrolling -->
+        <div class="js-sidebar-scroll">
+            <!-- Side Navigation -->
+            <div class="content-side">
+                <ul class="nav-main">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="#">
+                            <i class="nav-main-link-icon fa fa-chart-bar"></i>
+                            <span class="nav-main-link-name">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="#">
+                            <i class="nav-main-link-icon fa fa-building"></i>
+                            <span class="nav-main-link-name">Instituições</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="#">
+                            <i class="nav-main-link-icon fa fa-users"></i>
+                            <span class="nav-main-link-name">Usuários</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END Side Navigation -->
+        </div>
+        <!-- END Sidebar Scrolling -->
+    </nav>
+    <!-- END Sidebar -->
+
+    <!-- Header -->
+    <header id="page-header">
+        <!-- Header Content -->
+        <div class="content-header">
+            <!-- Left Section -->
+            <div class="space-x-1">
+                <!-- Toggle Sidebar -->
+                <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
+                <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="sidebar_toggle">
+                    <i class="fa fa-fw fa-bars"></i>
+                </button>
+                <!-- END Toggle Sidebar -->
+
+            </div>
+            <!-- END Left Section -->
+
+            <!-- Right Section -->
+            <div class="space-x-1">
+                <!-- User Dropdown -->
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-user d-sm-none"></i>
+                        <span class="d-none d-sm-inline-block">Perfil</span>
+                        <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+                        <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
+                            Minha conta
+                        </div>
+                        <div class="p-2">
+                            <a class="dropdown-item" href="#">
+                                <i class="far fa-fw fa-user me-1"></i> Meus dados
+                            </a>
+
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{route('logout')}}">
+                                <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END User Dropdown -->
+    </header>
+    <!-- END Header -->
+
+    <!-- Main Container -->
+    <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-body-light">
+            <div class="content content-full">
+                <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+                    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">@yield('titulo')</h1>
+                    <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            @foreach($migalhas as $k => $migalha)
+                                <li class="breadcrumb-item{{ $k + 1 == count($migalhas) ? ' active' : ''}}">
+                                    @if($k + 1 < count($migalhas))
+                                        <a href="{{ $migalha['link'] }}">{{$migalha['item']}}</a>
+                                    @else
+                                        {{ $migalha['item'] }}
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+            <div class="block block-rounded">
+                <div class="block-content text-center">
+                    @yield('conteudo')
+                </div>
+            </div>
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+
+    <!-- Footer -->
+    <footer id="page-footer" class="bg-body-light">
+        <div class="content py-0">
+            <div class="row fs-sm">
+                <div class="col-sm-6 order-sm-1 text-center text-sm-start">
+                    <a class="fw-semibold" href="#" target="_blank">Achei Aqui</a> &copy;
+                    <span data-toggle="year-copy"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END Footer -->
+</div>
+<!-- END Page Container -->
+
+<!--
+  Dashmix JS
+
+  Core libraries and functionality
+  webpack is putting everything together at assets/_js/main/app.js
+-->
+<script src="{{asset('assets/js/dashmix.app.min.js')}}"></script>
+<script src="{{asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+</body>
+</html>

@@ -61,6 +61,6 @@ class UserController extends Controller
      */
     public function administracaoRestrita(): View|Factory|Application
     {
-        return view('administracao.restrita');
+        return view('administracao.dashboard');
     }
 }
