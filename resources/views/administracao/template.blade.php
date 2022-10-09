@@ -83,22 +83,50 @@
             <div class="content-side">
                 <ul class="nav-main">
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="#">
+                        <a class="nav-main-link" href="{{route('administracao.restrita')}}">
                             <i class="nav-main-link-icon fa fa-chart-bar"></i>
                             <span class="nav-main-link-name">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="#">
+                        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                           aria-expanded="true" href="#">
                             <i class="nav-main-link-icon fa fa-building"></i>
                             <span class="nav-main-link-name">Instituições</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\Instituicao::count() }}</span>
                         </a>
+                        <ul class="nav-main-submenu">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('instituicao.index') }}">
+                                    <span class="nav-main-link-name">Listar</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="#">
+                                    <span class="nav-main-link-name">Cadastrar</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="#">
+                        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                           aria-expanded="true" href="#">
                             <i class="nav-main-link-icon fa fa-users"></i>
                             <span class="nav-main-link-name">Usuários</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\User::count() }}</span>
                         </a>
+                        <ul class="nav-main-submenu">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('user.index') }}">
+                                    <span class="nav-main-link-name">Listar</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{route('user.create')}}">
+                                    <span class="nav-main-link-name">Cadastrar</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -139,7 +167,7 @@
                             Minha conta
                         </div>
                         <div class="p-2">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('user.edit')}}">
                                 <i class="far fa-fw fa-user me-1"></i> Meus dados
                             </a>
 
@@ -183,13 +211,7 @@
         <!-- END Hero -->
 
         <!-- Page Content -->
-        <div class="content">
-            <div class="block block-rounded">
-                <div class="block-content text-center">
-                    @yield('conteudo')
-                </div>
-            </div>
-        </div>
+        @yield('conteudo')
         <!-- END Page Content -->
     </main>
     <!-- END Main Container -->
@@ -215,7 +237,20 @@
   Core libraries and functionality
   webpack is putting everything together at assets/_js/main/app.js
 -->
-<script src="{{asset('assets/js/dashmix.app.min.js')}}"></script>
-<script src="{{asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
+<script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
+<script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+<script>Dashmix.helpersOnLoad(['jq-notify']);</script>
+<script>
+    $(document).ready(function () {
+        @if(!is_null(session('mensagem')))
+        Dashmix.helpers('jq-notify', {
+            type: '{{session('tipo')}}',
+            icon: 'fa fa-exclamation me-1',
+            message: '{{session('mensagem')}}'
+        });
+        @endif
+    });
+</script>
 </body>
 </html>
