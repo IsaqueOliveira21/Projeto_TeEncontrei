@@ -20,7 +20,7 @@ class Instituicao extends Model
      * @var string[]
      */
     protected $fillable = [
-      'enderecos_id',
+      'endereco_id',
       'nomeclatura',
       'capacidade',
       'numero_endereco'

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\UserController;
 
@@ -21,4 +22,12 @@ Route::prefix('usuario')->controller(UserController::class)->middleware('auth')-
 
 Route::prefix('instituicao')->controller(InstituicaoController::class)->middleware('auth')->group(function () {
     Route::get('index', 'index')->name('instituicao.index');
+    Route::get('edit/{instituicao}', 'edit')->name('instituicao.edit');
+    Route::get('', 'create')->name('instituicao.create');
+    Route::post('store', 'store')->name('instituicao.store');
+});
+
+Route::prefix('endereco')->controller(EnderecoController::class)->middleware('auth')->group(function() {
+    Route::post('buscarCEP', 'buscarCEP')->name('endereco.buscarCEP');
+    Route::post('store', 'store')->name('endereco.store');
 });

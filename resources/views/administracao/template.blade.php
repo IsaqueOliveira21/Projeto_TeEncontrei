@@ -22,6 +22,7 @@
     <!-- Fonts and Dashmix framework -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{asset('assets/css/dashmix.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/js/plugins/select2/css/select2.min.css')}}">
     <!-- END Stylesheets -->
 </head>
 <body>
@@ -102,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="#">
+                                <a class="nav-main-link" href="{{ route('instituicao.create') }}">
                                     <span class="nav-main-link-name">Cadastrar</span>
                                 </a>
                             </li>
@@ -240,7 +241,9 @@
 <script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
 <script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-<script>Dashmix.helpersOnLoad(['jq-notify']);</script>
+<script src="{{ asset('assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js') }}"></script>
+<script src="{{asset('assets/js/plugins/select2/js/select2.full.min.js')}}"></script>
+<script>Dashmix.helpersOnLoad(['jq-notify', 'jq-select2']);</script>
 <script>
     $(document).ready(function () {
         @if(!is_null(session('mensagem')))
@@ -250,6 +253,7 @@
             message: '{{session('mensagem')}}'
         });
         @endif
+        $("#cep").mask("99999-999", {placeholder:"0"});
     });
 </script>
 </body>

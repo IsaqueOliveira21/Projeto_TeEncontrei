@@ -98,5 +98,11 @@
 
                         <!-- Page JS Code -->
                         <script src="{{asset('assets/js/pages/op_auth_signin.min.js')}}"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

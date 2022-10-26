@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/acheiaqui_v2.iml" filepath="$PROJECT_DIR$/.idea/acheiaqui_v2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../praticando_laravel/.idea/praticando_laravel.iml" filepath="$PROJECT_DIR$/../praticando_laravel/.idea/praticando_laravel.iml" />
     </modules>
   </component>
 </project>
