@@ -15,14 +15,14 @@ class InstituicaoController extends Controller
         return view('administracao.instituicao.index', compact('instituicoes'));
     }
 
-    public function create()
+    public function buscarEndereco(Instituicao $instituicao = null)
     {
-        return view('administracao.endereco.busca_endereco');
+        return view('administracao.endereco.busca_endereco', compact('instituicao'));
     }
 
     public function store(Request $request)
     {
-        try{
+        try {
             Instituicao::create([
                 'endereco_id' => $request->endereco_id,
                 'nomeclatura' => $request->nomeclatura,
@@ -30,6 +30,26 @@ class InstituicaoController extends Controller
                 'numero_enderceo' => $request->numero_endereco
             ]);
             return redirect()->route('instituicao.index')->with(['tipo' => 'success', 'mensagem' => 'Nova instituição cadastrada com sucesso']);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
+        }
+    }
+
+    public function edit(Instituicao $instituicao)
+    {
+        $endereco = $instituicao->endereco;
+        return view('administracao.instituicao.dados', compact('instituicao', 'endereco'));
+    }
+
+    public function update(Instituicao $instituicao, Request $request)
+    {
+        try {
+            $instituicao->nomeclatura = $request->nomeclatura;
+            $instituicao->capacidade = $request->capacidade;
+            $instituicao->endereco_id = $request->endereco_id;
+            $instituicao->numero_endereco = $request->numero_endereco;
+            $instituicao->save();
+            return redirect()->route('instituicao.edit', $instituicao->id)->with(['tipo' => 'success', 'mensagem' => 'Instituição atualizada com sucesso!']);
         } catch (Exception $e) {
             return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }

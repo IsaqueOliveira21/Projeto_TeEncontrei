@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>::TeEncontrei - Administração::</title>
+    <title>::TeEncontrei - Instituição::</title>
 
     <meta name="description"
           content="">
@@ -84,7 +84,7 @@
             <div class="content-side">
                 <ul class="nav-main">
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="{{route('administracao.dashboard')}}">
+                        <a class="nav-main-link" href="{{route('instituicao.dashboard')}}">
                             <i class="nav-main-link-icon fa fa-chart-bar"></i>
                             <span class="nav-main-link-name">Dashboard</span>
                         </a>
@@ -92,18 +92,18 @@
                     <li class="nav-main-item">
                         <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                            aria-expanded="true" href="#">
-                            <i class="nav-main-link-icon fa fa-building"></i>
-                            <span class="nav-main-link-name">Instituições</span>
-                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\Instituicao::count() }}</span>
+                            <i class="nav-main-link-icon fa fa-user-nurse"></i>
+                            <span class="nav-main-link-name">Colaboradores</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\Colaborador::count() }}</span>
                         </a>
                         <ul class="nav-main-submenu">
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{ route('instituicao.index') }}">
+                                <a class="nav-main-link" href="{{ route('colaborador.index') }}">
                                     <span class="nav-main-link-name">Listar</span>
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{ route('instituicao.buscarEndereco') }}">
+                                <a class="nav-main-link" href="{{ route('colaborador.buscarEndereco') }}">
                                     <span class="nav-main-link-name">Cadastrar</span>
                                 </a>
                             </li>
@@ -112,30 +112,42 @@
                     <li class="nav-main-item">
                         <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                            aria-expanded="true" href="#">
-                            <i class="nav-main-link-icon fa fa-users"></i>
-                            <span class="nav-main-link-name">Usuários</span>
-                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\User::count() }}</span>
+                            <i class="nav-main-link-icon fa fa-user-friends"></i>
+                            <span class="nav-main-link-name">Desabrigados</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\Desabrigado::count() }}</span>
                         </a>
                         <ul class="nav-main-submenu">
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{ route('user.index') }}">
+                                <a class="nav-main-link" href="{{ route('desabrigado.index') }}">
                                     <span class="nav-main-link-name">Listar</span>
                                 </a>
                             </li>
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{route('user.create')}}">
+                                <a class="nav-main-link" href="{{ route('desabrigado.create') }}">
                                     <span class="nav-main-link-name">Cadastrar</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-main-item">
-                        <a class="nav-main-link" href="{{route('endereco.index')}}">
-                            <i class="nav-main-link-icon fa fa-address-book"></i>
-                            <span class="nav-main-link-name">Endereços</span>
-                            <span
-                                class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\Endereco::count() }}</span>
+                        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                           aria-expanded="true" href="#">
+                            <i class="nav-main-link-icon fa fa-hotel"></i>
+                            <span class="nav-main-link-name">Visitas</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\VisitaCabecalho::count() }}</span>
                         </a>
+                        <ul class="nav-main-submenu">
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('visita.index') }}">
+                                    <span class="nav-main-link-name">Listar</span>
+                                </a>
+                            </li>
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('visita.create') }}">
+                                    <span class="nav-main-link-name">Cadastrar</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -262,6 +274,7 @@
         });
         @endif
         $("#cep").mask("99999-999", {placeholder:"0"});
+        $("#cpf").mask("999.999.999-99", {placeholder:"0"});
     });
 </script>
 </body>

@@ -2,7 +2,7 @@
 @section('titulo', 'BUSCAR ENDEREÇO')
 @php
     $migalhas = [
-        ['item' => 'ENDEREÇO', 'link' => '#'],
+        ['item' => 'ENDEREÇOS', 'link' => route('endereco.index')],
         ['item' => 'BUSCAR ENDEREÇO', 'link' => '#'],
 ];
 @endphp
@@ -11,7 +11,7 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-content">
-                <form method="POST" action="{{route('endereco.buscarCEP')}}" enctype="application/x-www-form-urlencoded">
+                <form method="POST" action="{{route('endereco.buscarEndereco', $instituicao ?? '')}}" enctype="application/x-www-form-urlencoded">
                     @csrf
                     <div class="mb-4">
                         <label class="form-label" for="cep">DIGITE O CEP PARA BUSCAR</label>

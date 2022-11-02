@@ -31,7 +31,15 @@ class UserController extends Controller
     {
         try {
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('administracao.restrita');
+                if(Auth::user()->colaborador()->count() == 0) {
+                    return redirect()->route('administracao.dashboard');
+                } else {
+                    if(Auth::user()->colaborador->ativo){
+                        return redirect()->route('instituicao.dashboard');
+                    } else {
+                        return view('login', ['mensagem' => 'Usuario desativado!']);
+                    }
+                }
             } else {
                 // return $this->formLogin();
                 return view('login', ['mensagem' => 'Login ou Senha invalidos!']);
@@ -57,14 +65,6 @@ class UserController extends Controller
     {
         //dd('Não Autorizado!');
         return redirect()->route('user.login');
-    }
-
-    /**
-     * @return Application|Factory|View
-     */
-    public function administracaoRestrita(): View|Factory|Application
-    {
-        return view('administracao.dashboard');
     }
 
     public function index(Request $request)

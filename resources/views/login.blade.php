@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>::ACHEI AQUI::</title>
+    <title>::TeEncontrei::</title>
 
     <meta name="description" content="">
     <meta name="author" content="Isaque Oliveira">
@@ -43,7 +43,7 @@
                             <!-- Header -->
                             <div class="mb-2 text-center">
                                 <a class="link-fx fw-bold fs-1" href="#">
-                                    <span class="text-dark">Achei</span><span class="text-primary">Aqui</span>
+                                    <span class="text-dark">Te</span><span class="text-primary">Encontrei</span>
                                 </a>
                                 <p class="text-uppercase fw-bold fs-sm text-muted">Seja Bem Vindo</p>
                             </div>
