@@ -67,7 +67,11 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function index(Request $request): View|Factory|Application
     {
         $users = User::where('name', 'LIKE', "%{$request->pesquisa}%")
             ->orWhere('last_name', 'LIKE', "%{$request->pesquisa}%")
@@ -75,12 +79,19 @@ class UserController extends Controller
         return view('administracao.user.index', compact('users'));
     }
 
-    public function create()
+    /**
+     * @return Application|Factory|View
+     */
+    public function create(): View|Factory|Application
     {
         return view('administracao.user.dados');
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         try {
             // User::create(['name' => $request->name, 'last_name' => $request->last_name, 'email' => $request->email, 'password' => bcrypt('acheiaqui123')]);
@@ -97,7 +108,11 @@ class UserController extends Controller
 
     }
 
-    public function edit(User $user = null)
+    /**
+     * @param User|null $user
+     * @return Application|Factory|View
+     */
+    public function edit(User $user = null): View|Factory|Application
     {
         if (is_null($user)) {
             return view('administracao.user.perfil');
@@ -106,7 +121,12 @@ class UserController extends Controller
         }
     }
 
-    public function update(User $user, Request $request)
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function update(User $user, Request $request): RedirectResponse
     {
         if (is_null($user->id)) {
             // dd(Auth::user());
@@ -162,7 +182,11 @@ class UserController extends Controller
         }
     }
 
-    public function redefinirSenha(User $user)
+    /**
+     * @param User $user
+     * @return RedirectResponse
+     */
+    public function redefinirSenha(User $user): RedirectResponse
     {
         try {
             $user->password = bcrypt('acheiaqui123');
@@ -173,7 +197,11 @@ class UserController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete(Request $request): RedirectResponse
     {
         $user = User::find($request->id);
         try {
@@ -185,7 +213,11 @@ class UserController extends Controller
 
     }
 
-    private function uploadPhoto($photo)
+    /**
+     * @param $photo
+     * @return string
+     */
+    public function uploadPhoto($photo): string
     {
         $nome = uniqid(time()) . '.' . $photo->getClientOriginalExtension();
         $caminho = storage_path('app/public/photos/' . $nome);

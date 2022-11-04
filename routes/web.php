@@ -49,9 +49,11 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
     Route::prefix('colaborador')->controller(ColaboradorController::class)->group(function () {
         Route::get('index', 'index')->name('colaborador.index');
         Route::get('buscarEndereco', 'buscarEndereco')->name('colaborador.buscarEndereco');
-        Route::get('store', 'store')->name('colaborador.store');
+        Route::post('buscarEnderecoPost', 'buscarEnderecoPost')->name('colaborador.buscarEndereco.post');
+        Route::post('buscarEnderecoStore', 'buscarEnderecoStore')->name('colaborador.buscarEndereco.store');
+        Route::post('store', 'store')->name('colaborador.store');
         Route::get('edit/{colaborador}', 'edit')->name('colaborador.edit');
-        Route::get('update/{colaborador}', 'update')->name('colaborador.update');
+        Route::put('update/{colaborador}', 'update')->name('colaborador.update');
         Route::get('delete', 'delete')->name('colaborador.delete');
     });
 

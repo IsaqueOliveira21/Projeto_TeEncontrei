@@ -57,10 +57,15 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td class="fw-semibold">{{"{$colaborador->user->name} {$colaborador->user->last_name}"}}</td>
+                                {{--<td class="fw-semibold">{{"{$colaborador->user->name} {$colaborador->user->last_name}"}}</td>
                                 <td class="d-none d-sm-table-cell text-center">{{$colaborador->cargo}}</td>
                                 <td class="d-none d-sm-table-cell text-center">{{$colaborador->ativo == 1 ? 'Ativo' : 'Inativo'}}</td>
-                                <td class="text-center">{{$colaborador->created_at->format('d/m/Y H:i:s')}}</td>
+                                <td class="text-center">{{$colaborador->created_at->format('d/m/Y H:i:s')}}</td>--}}
+
+                                <td class="fw-semibold">{{"{$colaborador->name} {$colaborador->last_name}"}}</td>
+                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->cargo}}</td>
+                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->ativo == 1 ? 'Ativo' : 'Inativo'}}</td>
+                                <td class="text-center">{{\Carbon\Carbon::parse($colaborador->created_at)->format('d/m/Y H:i:s')}}</td>
                             </tr>
                         @empty
                             <tr>
