@@ -48,13 +48,15 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
 
     Route::prefix('colaborador')->controller(ColaboradorController::class)->group(function () {
         Route::get('index', 'index')->name('colaborador.index');
-        Route::get('buscarEndereco/{colaborador?}', 'buscarEndereco')->name('colaborador.buscarEndereco');
-        Route::post('buscarEnderecoPost/{colaborador?}', 'buscarEnderecoPost')->name('colaborador.buscarEndereco.post');
-        Route::post('buscarEnderecoStore/{colaborador?}', 'buscarEnderecoStore')->name('colaborador.buscarEndereco.store');
-        Route::post('store', 'store')->name('colaborador.store');
-        Route::get('edit/{colaborador}', 'edit')->name('colaborador.edit');
-        Route::put('update/{colaborador}', 'update')->name('colaborador.update');
-        Route::get('status/{colaborador}', 'status')->name('colaborador.status');
+        Route::middleware('CheckCargoColaborador')->group(function () {
+            Route::get('buscarEndereco/{colaborador?}', 'buscarEndereco')->name('colaborador.buscarEndereco');
+            Route::post('buscarEnderecoPost/{colaborador?}', 'buscarEnderecoPost')->name('colaborador.buscarEndereco.post');
+            Route::post('buscarEnderecoStore/{colaborador?}', 'buscarEnderecoStore')->name('colaborador.buscarEndereco.store');
+            Route::post('store', 'store')->name('colaborador.store');
+            Route::get('edit/{colaborador}', 'edit')->name('colaborador.edit');
+            Route::put('update/{colaborador}', 'update')->name('colaborador.update');
+            Route::get('status/{colaborador}', 'status')->name('colaborador.status');
+        });
     });
 
     Route::prefix('desabrigado')->controller(DesabrigadoController::class)->group(function () {
