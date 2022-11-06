@@ -169,4 +169,17 @@ class ColaboradorController extends Controller
             }
         }
     }
+
+    public function status(Colaborador $colaborador)
+    {
+        try{
+            $novoStatus = $colaborador->ativo ? 0 : 1;
+            $colaborador->ativo = $novoStatus;
+            $colaborador->save();
+            return redirect()->back()->with(['tipo' => 'success', 'mensagem' => $novoStatus ? 'Colaboradodor Reativado com sucesso!' : 'Colaborador Desativado com sucesso']);
+        } catch(Exception $e) {
+            return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
+        }
+
+    }
 }

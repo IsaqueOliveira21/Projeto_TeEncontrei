@@ -45,14 +45,22 @@
                             <tr>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                                data-bs-toggle="tooltip"
-                                                title="Delete">
-                                            <i class="fa fa-times"></i>
-                                        </button>
+                                        @if($colaborador->ativo)
+                                            <a href="{{ route('colaborador.status', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
+                                                    data-bs-toggle="tooltip"
+                                                    title="Desativar">
+                                                <i class="fa fa-user-slash"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('colaborador.status', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
+                                               data-bs-toggle="tooltip"
+                                               title="Ativar">
+                                                <i class="fa fa-user"></i>
+                                            </a>
+                                        @endif
                                         <a href="{{ route('colaborador.edit', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
                                                 data-bs-toggle="tooltip"
-                                                title="Edit">
+                                                title="Editar">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
                                     </div>

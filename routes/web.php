@@ -54,7 +54,7 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
         Route::post('store', 'store')->name('colaborador.store');
         Route::get('edit/{colaborador}', 'edit')->name('colaborador.edit');
         Route::put('update/{colaborador}', 'update')->name('colaborador.update');
-        Route::get('delete', 'delete')->name('colaborador.delete');
+        Route::get('status/{colaborador}', 'status')->name('colaborador.status');
     });
 
     Route::prefix('desabrigado')->controller(DesabrigadoController::class)->group(function () {
