@@ -7,9 +7,10 @@ use App\Models\Endereco;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ColaboradorController extends Controller
 {
@@ -35,17 +36,21 @@ class ColaboradorController extends Controller
         return view('instituicao.colaborador.index', compact('colaboradores'));
     }
 
-    public function buscarEndereco()
+    public function buscarEndereco(Colaborador $colaborador = null)
     {
-        return view('instituicao.colaborador.busca_endereco');
+        return view('instituicao.colaborador.busca_endereco', compact('colaborador'));
     }
 
-    public function buscarEnderecoPost(Request $request)
+    public function buscarEnderecoPost(Colaborador $colaborador = null, Request $request)
     {
         $endereco = Endereco::where('cep', $request->cep)->first();
         if ($endereco) {
             $cargos = $this->cargos;
-            return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
+            if(is_null($colaborador)) {
+                return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
+            } else {
+                return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador']));
+            }
         } else {
             $cep = $request->cep;
             $tiposLogradouros = [
@@ -54,7 +59,11 @@ class ColaboradorController extends Controller
                 'Praça',
                 'Travessa'
             ];
-            return view('instituicao.colaborador.endereco', compact(['cep', 'tiposLogradouros',]));
+            if(is_null($colaborador)) {
+                return view('instituicao.colaborador.endereco', compact(['cep', 'tiposLogradouros',]));
+            } else {
+                return view('instituicao.colaborador.endereco', compact(['cep', 'tiposLogradouros', 'colaborador']));
+            }
         }
     }
 
@@ -99,7 +108,7 @@ class ColaboradorController extends Controller
         }
     }
 
-    public function buscarEnderecoStore(Request $request)
+    public function buscarEnderecoStore(Colaborador $colaborador = null, Request $request)
     {
         try {
             $endereco = Endereco::create([
@@ -111,8 +120,13 @@ class ColaboradorController extends Controller
                 'uf' => $request->uf
             ]);
             $cargos = $this->cargos;
-            return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
+            if(is_null($colaborador)){
+                return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
+            } else {
+                return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador']));
+            }
         } catch (Exception $e) {
+            dd($e->getMessage());
             redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }
     }
@@ -122,5 +136,37 @@ class ColaboradorController extends Controller
         $cargos = $this->cargos;
         $endereco = $colaborador->endereco;
         return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador']));
+    }
+
+    public function update(Colaborador $colaborador, Request $request)
+    {
+        if ($request->hasFile('photo')) {
+            File::delete(storage_path('app/public/photos/'.$colaborador->user->photo));
+            $nomeFoto = (new UserController)->uploadPhoto($request->photo);
+        } else {
+            $nomeFoto = $colaborador->user->photo;
+        }
+        if ($request->password != $request->confirm_password) {
+            return redirect()->back()->with(['tipo' => 'warning', 'mensagem' => 'As senhas não conferem']);
+        } else {
+            DB::beginTransaction();
+            try {
+                $colaborador->user->name = $request->name;
+                $colaborador->user->last_name = $request->last_name;
+                $colaborador->user->email = $request->email;
+                $colaborador->user->password = bcrypt($request->password);
+                $colaborador->user->photo = $nomeFoto;
+                $colaborador->user->save();
+                $colaborador->cargo = $request->cargo;
+                $colaborador->numero_endereco = $request->numero_endereco;
+                $colaborador->data_nascimento = Carbon::createFromFormat('d/m/Y', $request->data_nascimento)->format('Y-m-d');
+                $colaborador->save();
+                DB::commit();
+                return redirect()->route('colaborador.edit', $colaborador)->with(['tipo' => 'success', 'mensagem' => 'Colaborador atualizado com sucesso!']);
+            } catch(Exception $e) {
+                DB::rollback();
+                return redirect()->route('colaborador.edit', $colaborador)->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
+            }
+        }
     }
 }

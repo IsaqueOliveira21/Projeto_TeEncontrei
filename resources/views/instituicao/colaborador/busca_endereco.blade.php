@@ -11,7 +11,7 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-content">
-                <form method="POST" action="{{route('colaborador.buscarEndereco.post')}}" enctype="application/x-www-form-urlencoded">
+                <form method="POST" action="{{route('colaborador.buscarEndereco.post', isset($colaborador) ? $colaborador->id : null)}}" enctype="application/x-www-form-urlencoded">
                     @csrf
                     <div class="mb-4">
                         <label class="form-label" for="cep">DIGITE O CEP PARA BUSCAR</label>

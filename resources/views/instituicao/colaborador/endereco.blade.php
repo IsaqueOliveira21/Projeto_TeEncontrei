@@ -26,7 +26,7 @@
                              id="btabs-animated-slideleft-dados"
                              role="tabpanel" aria-labelledby="btabs-animated-slideleft-dados-tab">
                             <form method="POST"
-                                  action="{{ route('colaborador.buscarEndereco.store') }}"
+                                  action="{{ route('colaborador.buscarEndereco.store', isset($colaborador) ? $colaborador->id : null) }}"
                                   enctype="application/x-www-form-urlencoded">
                                 @csrf
                                 <div class="row mb-4">
