@@ -24,6 +24,7 @@
     <link rel="stylesheet" id="css-main" href="{{asset('assets/css/dashmix.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/js/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
     <!-- END Stylesheets -->
 </head>
 <body>
@@ -265,7 +266,8 @@
 <script src="{{ asset('assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js') }}"></script>
 <script src="{{asset('assets/js/plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
-<script>Dashmix.helpersOnLoad(['jq-notify', 'jq-select2', 'jq-datepicker']);</script>
+<script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
+<script>Dashmix.helpersOnLoad(['jq-notify', 'jq-select2', 'jq-datepicker', 'js-flatpickr']);</script>
 <script>
     $(document).ready(function () {
         @if(!is_null(session('mensagem')))
@@ -277,6 +279,7 @@
         @endif
         $("#cep").mask("99999-999", {placeholder:"0"});
         $("#cpf").mask("999.999.999-99", {placeholder:"0"});
+        $("#numero_telefone").mask("(99) 99999-9999", {placeholder:"0"});
     });
 </script>
 </body>

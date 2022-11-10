@@ -6,6 +6,7 @@ use App\Http\Controllers\DesabrigadoController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitaController;
 
 Route::get('/', [UserController::class, 'formLogin'])->name('user.login');
 Route::post('/login', [UserController::class, 'postLogin'])->name('user.postLogin');
@@ -53,9 +54,10 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
             Route::post('buscarEnderecoPost/{colaborador?}', 'buscarEnderecoPost')->name('colaborador.buscarEndereco.post');
             Route::post('buscarEnderecoStore/{colaborador?}', 'buscarEnderecoStore')->name('colaborador.buscarEndereco.store');
             Route::post('store', 'store')->name('colaborador.store');
-            Route::get('edit/{colaborador}', 'edit')->name('colaborador.edit');
+            Route::get('edit/{colaborador}/{aba?}', 'edit')->name('colaborador.edit');
             Route::put('update/{colaborador}', 'update')->name('colaborador.update');
             Route::get('status/{colaborador}', 'status')->name('colaborador.status');
+            Route::post('telefone/store/{colaborador}', 'telefoneStore')->name('colaborador.telefone.store');
         });
     });
 
@@ -65,11 +67,12 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
         Route::post('store', 'store')->name('desabrigado.store');
         Route::get('edit/{desabrigado}', 'edit')->name('desabrigado.edit');
         Route::put('update/{desabrigado}', 'update')->name('desabrigado.update');
-        Route::get('delete', 'delete')->name('desabrigado.delete');
     });
 
-    Route::prefix('visita')->controller(ColaboradorController::class)->group(function () {
+    Route::prefix('visita')->controller(VisitaController::class)->group(function () {
         Route::get('index', 'index')->name('visita.index');
         Route::get('create', 'create')->name('visita.create');
+        Route::get('edit/{visitaCabecalho}', 'edit')->name('visita.edit');
+        Route::get('delete/{visitaCabecalho}', 'delete')->name('visita.delete');
     });
 });

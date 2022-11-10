@@ -21,6 +21,13 @@
                                     aria-controls="btabs-animated-slideleft-dados" aria-selected="true">Dados
                             </button>
                         </li>
+                        <li class="nav-item">
+                            <button class="nav-link"
+                                    id="btabs-animated-slideleft-telefones-tab" data-bs-toggle="tab"
+                                    data-bs-target="#btabs-animated-slideleft-telefones" role="tab"
+                                    aria-controls="btabs-animated-slideleft-telefones" aria-selected="true">Telefones
+                            </button>
+                        </li>
                     </ul>
 
                     <div class="block-content tab-content overflow-hidden">
@@ -184,6 +191,50 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="tab-pane fade fade-left"
+                             id="btabs-animated-slideleft-telefones"
+                             role="tabpanel" aria-labelledby="btabs-animated-slideleft-telefones-tab">
+                            <form method="POST" action="{{ route('colaborador.telefone.store', $colaborador->id) }}" enctype="application/x-www-form-urlencoded">
+                                @csrf
+                                <h2>{{ $colaborador->user->name . ' ' . $colaborador->user->last_name }}</h2>
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <label class="form-label" for="numero_telefone">Telefone</label>
+                                        <div class="input-group">
+                                            <input type="tel" class="form-control" id="numero_telefone" name="numero_telefone"
+                                                   value=""
+                                                   required
+                                                   placeholder="Número de telefone" autofocus>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa fa-phone me-1"></i>Salvar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <table class="table table-vcenter table-striped table-hover">
+                                    <thead>
+                                        <tr class="bg-body-dark">
+                                            <th class="text-center" style="width: 5%;">#</th>
+                                            <th style="width: 60%">Telefones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($colaborador->telefones as $telefone)
+                                        <tr>
+                                            <td>#</td>
+                                            <td>{{ $telefone->numero_telefone }}</td>
+                                        </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="2">Nenhum número de telefone registrado ainda.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
