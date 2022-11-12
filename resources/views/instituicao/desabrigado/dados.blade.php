@@ -23,13 +23,15 @@
                                         aria-controls="btabs-animated-slideleft-dados" aria-selected="true">Dados
                                 </button>
                             </li>
-                            <li class="nav-item">
-                                <button class="nav-link"
-                                        id="btabs-animated-slideleft-visitas-tab" data-bs-toggle="tab"
-                                        data-bs-target="#btabs-animated-slideleft-visitas" role="tab"
-                                        aria-controls="btabs-animated-slideleft-visitas" aria-selected="true">Visitas
-                                </button>
-                            </li>
+                            @if(isset($desabrigado))
+                                <li class="nav-item">
+                                    <button class="nav-link"
+                                            id="btabs-animated-slideleft-visitas-tab" data-bs-toggle="tab"
+                                            data-bs-target="#btabs-animated-slideleft-visitas" role="tab"
+                                            aria-controls="btabs-animated-slideleft-visitas" aria-selected="true">Visitas
+                                    </button>
+                                </li>
+                            @endif
                         </ul>
                         <div class="block-content tab-content overflow-hidden">
                             <div class="tab-pane fade fade-left show active"

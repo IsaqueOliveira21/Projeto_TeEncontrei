@@ -19,7 +19,7 @@
                         <input type="text" style="width: 400px" class="js-flatpickr form-control" id="example-flatpickr-range" name="datas" value="{{ $_GET['datas'] ?? '' }}" placeholder="Selecione o período de datas" data-mode="range">
                     </div>
                     <div class="col-sm-4 col-xs-12">
-                        <select style="width: 400px" class="js-select2 form-select" id="example-select2" name="desabrigado_id" data-placeholder="Desabrigado...">
+                        <select style="width: 300px" class="js-select2 form-select" id="example-select2" name="desabrigado_id" data-placeholder="Desabrigado...">
                             <option></option>
                             @foreach($desabrigados as $desabrigado)
                                 <option value="{{$desabrigado->id}}" {{ isset($_GET['desabrigado_id']) && $_GET['desabrigado_id'] == $desabrigado->id ? 'selected' : '' }}>{{ "{$desabrigado->nome} {$desabrigado->sobrenome}" }}</option>
@@ -43,8 +43,8 @@
                     <table class="table table-vcenter table-striped table-hover">
                         <thead>
                         <tr class="bg-body-dark">
-                            <th class="text-center" style="width: 5%;">#</th>
-                            <th style="width: 80%">Desabrigado</th>
+                            <th class="text-center" style="width: 15%;">#</th>
+                            <th style="width: 65%">Desabrigado</th>
                             <th class="d-none d-sm-table-cell text-center" style="width: 15%;">Registrado em</th>
                         </tr>
                         </thead>
