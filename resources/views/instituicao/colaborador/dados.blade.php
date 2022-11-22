@@ -15,23 +15,25 @@
                 <div class="block-content">
                     <ul class="nav nav-tabs nav-tabs-block" role="tablist">
                         <li class="nav-item">
-                            <button class="nav-link active"
+                            <button class="nav-link {{ isset($_GET['telefones']) ? '' : 'active' }}"
                                     id="btabs-animated-slideleft-dados-tab" data-bs-toggle="tab"
                                     data-bs-target="#btabs-animated-slideleft-dados" role="tab"
                                     aria-controls="btabs-animated-slideleft-dados" aria-selected="true">Dados
                             </button>
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link"
-                                    id="btabs-animated-slideleft-telefones-tab" data-bs-toggle="tab"
-                                    data-bs-target="#btabs-animated-slideleft-telefones" role="tab"
-                                    aria-controls="btabs-animated-slideleft-telefones" aria-selected="true">Telefones
-                            </button>
-                        </li>
+                        @if(isset($colaborador))
+                            <li class="nav-item">
+                                <button class="nav-link {{ isset($_GET['telefones']) ? 'active' : '' }}"
+                                        id="btabs-animated-slideleft-telefones-tab" data-bs-toggle="tab"
+                                        data-bs-target="#btabs-animated-slideleft-telefones" role="tab"
+                                        aria-controls="btabs-animated-slideleft-telefones" aria-selected="true">Telefones
+                                </button>
+                            </li>
+                        @endif
                     </ul>
 
                     <div class="block-content tab-content overflow-hidden">
-                        <div class="tab-pane fade fade-left show active"
+                        <div class="tab-pane fade fade-left {{ isset($_GET['telefones']) ? '' : 'show active' }}"
                              id="btabs-animated-slideleft-dados"
                              role="tabpanel" aria-labelledby="btabs-animated-slideleft-dados-tab">
                             <form method="POST"
@@ -192,50 +194,66 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="tab-pane fade fade-left"
-                             id="btabs-animated-slideleft-telefones"
-                             role="tabpanel" aria-labelledby="btabs-animated-slideleft-telefones-tab">
-                            <form method="POST" action="{{ route('colaborador.telefone.store', $colaborador->id) }}" enctype="application/x-www-form-urlencoded">
-                                @csrf
-                                <h2>{{ $colaborador->user->name . ' ' . $colaborador->user->last_name }}</h2>
-                                <div class="row">
-                                    <div class="col-12 mb-4">
-                                        <label class="form-label" for="numero_telefone">Telefone</label>
-                                        <div class="input-group">
-                                            <input type="tel" class="form-control" id="numero_telefone" name="numero_telefone"
-                                                   value=""
-                                                   required
-                                                   placeholder="Número de telefone" autofocus>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fa fa fa-phone me-1"></i>Salvar
-                                            </button>
+                        @if(isset($colaborador))
+                            <div class="tab-pane fade fade-left {{ isset($_GET['telefones']) ? 'show active' : '' }}"
+                                 id="btabs-animated-slideleft-telefones"
+                                 role="tabpanel" aria-labelledby="btabs-animated-slideleft-telefones-tab">
+                                <form method="POST" action="{{ route('colaborador.telefone.store', $colaborador->id) }}" enctype="application/x-www-form-urlencoded">
+                                    @csrf
+                                    <h2>{{ $colaborador->user->name . ' ' . $colaborador->user->last_name }}</h2>
+                                    <div class="row">
+                                        <div class="col-12 mb-4">
+                                            <label class="form-label" for="numero_telefone">Telefone</label>
+                                            <div class="input-group">
+                                                <input type="tel" class="form-control" id="numero_telefone" name="numero_telefone"
+                                                       value=""
+                                                       required
+                                                       placeholder="Número de telefone" autofocus>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fa fa fa-phone me-1"></i>Salvar
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                            <div class="row">
-                                <table class="table table-vcenter table-striped table-hover">
-                                    <thead>
-                                        <tr class="bg-body-dark">
-                                            <th class="text-center" style="width: 5%;">#</th>
-                                            <th style="width: 60%">Telefones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($colaborador->telefones as $telefone)
-                                        <tr>
-                                            <td>#</td>
-                                            <td>{{ $telefone->numero_telefone }}</td>
-                                        </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="2">Nenhum número de telefone registrado ainda.</td>
+                                </form>
+                                <div class="row">
+                                    <table class="table table-vcenter table-striped table-hover">
+                                        <thead>
+                                            <tr class="bg-body-dark">
+                                                <th class="text-center" style="width: 5%;">#</th>
+                                                <th style="width: 60%">Telefones</th>
                                             </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @if(isset($colaborador))
+                                            @forelse($colaborador->telefones as $telefone)
+                                            <tr>
+                                                <td class="text-center">
+                                                    <a onclick="deletaTelefone({{$telefone->id}})"
+                                                       class="btn btn-sm btn-alt-danger"
+                                                       data-bs-toggle="tooltip"
+                                                       title="Deletar">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                                <td>{{ $telefone->numero_telefone }}</td>
+                                            </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="2">Nenhum número de telefone registrado ainda.</td>
+                                                </tr>
+                                            @endforelse
+                                        @endif
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="2">{{ $telefones->appends(['telefones' => true])->links() }}</td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -250,4 +268,11 @@
             @endif
         </div>
     </div>
+    <script>
+        function deletaTelefone(id) {
+            if(confirm('Deseja realmente deletar este telefone?')){
+                window.location.href = '{{ route('colaborador.telefone.delete') }}?id=' + id;
+            }
+        }
+    </script>
 @endsection

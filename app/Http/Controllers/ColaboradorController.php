@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colaborador;
+use App\Models\ColaboradorTelefone;
+use App\Models\Desabrigado;
 use App\Models\Endereco;
 use App\Models\User;
 use Exception;
@@ -66,7 +68,7 @@ class ColaboradorController extends Controller
     public function buscarEnderecoPost(Colaborador $colaborador = null, Request $request): View|Factory|Application
     {
         $endereco = Endereco::where('cep', $request->cep)->first();
-        if ($endereco) {
+        if (isset($endereco)) {
             $cargos = $this->cargos;
             if(is_null($colaborador)) {
                 return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
@@ -151,7 +153,7 @@ class ColaboradorController extends Controller
                 'uf' => $request->uf
             ]);
             $cargos = $this->cargos;
-            if(is_null($colaborador)){
+            if(!isset($colaborador->id)){
                 return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
             } else {
                 return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador']));
@@ -169,7 +171,8 @@ class ColaboradorController extends Controller
     {
         $cargos = $this->cargos;
         $endereco = $colaborador->endereco;
-        return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador', 'aba']));
+        $telefones = $colaborador->telefones()->orderBy('numero_telefone')->paginate(10);
+        return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador', 'aba', 'telefones']));
     }
 
     /**
@@ -225,6 +228,11 @@ class ColaboradorController extends Controller
         }
     }
 
+    /**
+     * @param Colaborador $colaborador
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function telefoneStore(Colaborador $colaborador, Request $request)
     {
         try {
@@ -233,5 +241,15 @@ class ColaboradorController extends Controller
         } catch(Exception $e) {
             return redirect()->route('colaborador.edit', [$colaborador->id, 'telefones'])->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function telefoneDelete(Request $request) {
+        $telefone = ColaboradorTelefone::find($request->id);
+        $telefone->delete();
+        return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Telefone excluído com sucesso!']);
     }
 }

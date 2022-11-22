@@ -58,6 +58,7 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
             Route::put('update/{colaborador}', 'update')->name('colaborador.update');
             Route::get('status/{colaborador}', 'status')->name('colaborador.status');
             Route::post('telefone/store/{colaborador}', 'telefoneStore')->name('colaborador.telefone.store');
+            Route::get('delete', 'telefoneDelete')->name('colaborador.telefone.delete');
         });
     });
 
@@ -71,7 +72,7 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
 
     Route::prefix('visita')->controller(VisitaController::class)->group(function () {
         Route::get('index', 'index')->name('visita.index');
-        Route::get('create', 'create')->name('visita.create');
+        Route::get('create/{desabrigado?}', 'create')->name('visita.create');
         Route::post('store', 'store')->name('visita.store');
         Route::get('edit/{visitaCabecalho}', 'edit')->name('visita.edit');
         Route::put('update/{visitaCabecalho}', 'update')->name('visita.update');

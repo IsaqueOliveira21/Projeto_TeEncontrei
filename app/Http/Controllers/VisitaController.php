@@ -48,16 +48,26 @@ class VisitaController extends Controller
         return view('instituicao.visita.index', compact('visitas', 'desabrigados'));
     }
 
-    public function create()
+    public function create(Desabrigado $desabrigado = null, Request $request)
     {
+        if(isset($desabrigado->id)){
+            $dadosDesabrigado = [
+                $desabrigado->id,
+                $desabrigado->nome.' '.$desabrigado->sobrenome
+            ];
+        } else {
+            $dadosDesabrigado = null;
+        }
+
         $desabrigados = Desabrigado::orderBy('nome')->get();
-        return view('instituicao.visita.dados', compact('desabrigados'));
+        return view('instituicao.visita.dados', compact('desabrigados', 'dadosDesabrigado'));
     }
 
     public function store(Request $request)
     {
         DB::beginTransaction();
         try {
+
             $cabecalho = $this->visita->create([
                 'instituicao_id' => Auth::user()->colaborador->instituicao_id,
                 'desabrigado_id' => $request->desabrigado_id,

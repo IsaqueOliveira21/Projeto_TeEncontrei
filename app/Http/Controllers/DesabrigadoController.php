@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desabrigado;
+use App\Models\VisitaCabecalho;
+use App\Models\VisitaDetalhe;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DesabrigadoController extends Controller
 {
@@ -15,6 +18,7 @@ class DesabrigadoController extends Controller
             ->orWhere('cpf', 'LIKE', "{$request->pesquisa}")
             ->orderBy('nome')
             ->paginate(15);
+
         return view('instituicao.desabrigado.index', compact('desabrigados'));
     }
 
@@ -42,7 +46,10 @@ class DesabrigadoController extends Controller
 
     public function edit(Desabrigado $desabrigado)
     {
-        return view('instituicao.desabrigado.dados', compact('desabrigado'));
+        $visitas = $desabrigado->visitas()->where('instituicao_id', Auth::user()->colaborador->instituicao_id)
+            ->orderBy('created_at')
+            ->paginate(20);
+        return view('instituicao.desabrigado.dados', compact(['desabrigado', 'visitas']));
     }
 
     public function update(Request $request, Desabrigado $desabrigado)

@@ -36,24 +36,25 @@
                                 Colaboradores
                             </button>
                         </li>
+                    @else
+                        <ul class="nav nav-tabs nav-tabs-block" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active"
+                                        id="btabs-animated-slideleft-dados-tab" data-bs-toggle="tab"
+                                        data-bs-target="#btabs-animated-slideleft-dados" role="tab"
+                                        aria-controls="btabs-animated-slideleft-dados" aria-selected="true">Dados
+                                </button>
+                            </li>
+                        </ul>
                     @endif
                 </ul>
 
-                <ul class="nav nav-tabs nav-tabs-block" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active"
-                                id="btabs-animated-slideleft-dados-tab" data-bs-toggle="tab"
-                                data-bs-target="#btabs-animated-slideleft-dados" role="tab"
-                                aria-controls="btabs-animated-slideleft-dados" aria-selected="true">Dados
-                        </button>
-                    </li>
-                </ul>
                 <div class="block-content tab-content overflow-hidden">
                     <div class="tab-pane fade fade-left show active"
                          id="btabs-animated-slideleft-dados"
                          role="tabpanel" aria-labelledby="btabs-animated-slideleft-dados-tab">
                         <form method="POST"
-                              action="{{isset($instituicao) ? route('instituicao.update', $instituicao->id) : route('instituicao.store')}}"
+                              action="{{ isset($instituicao) ? route('instituicao.update', $instituicao->id) : route('instituicao.store') }}"
                               enctype="application/x-www-form-urlencoded">
                             @csrf
                             @if(isset($instituicao))

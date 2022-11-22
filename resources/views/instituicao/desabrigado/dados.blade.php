@@ -28,7 +28,8 @@
                                     <button class="nav-link"
                                             id="btabs-animated-slideleft-visitas-tab" data-bs-toggle="tab"
                                             data-bs-target="#btabs-animated-slideleft-visitas" role="tab"
-                                            aria-controls="btabs-animated-slideleft-visitas" aria-selected="true">Visitas
+                                            aria-controls="btabs-animated-slideleft-visitas" aria-selected="true">
+                                        Visitas
                                     </button>
                                 </li>
                             @endif
@@ -127,15 +128,62 @@
                                     </div>
                                 </form>
                             </div>
-                                <div class="tab-pane fade fade-left"
-                                     id="btabs-animated-slideleft-visitas"
-                                     role="tabpanel" aria-labelledby="btabs-animated-slideleft-visitas-tab">
-
+                            {{-- TAB VISITAS --}}
+                            <div class="tab-pane fade fade-left"
+                                 id="btabs-animated-slideleft-visitas"
+                                 role="tabpanel" aria-labelledby="btabs-animated-slideleft-visitas-tab">
+                                <div class="content">
+                                    <div class="block block-rounded">
+                                        <div class="block-content">
+                                            <table class="table table-vcenter table-striped table-hover">
+                                                <thead>
+                                                <tr class="bg-body-dark">
+                                                    <th style="width: 10%; text-align: center;">#</th>
+                                                    <th>Visita realizada em</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @forelse($visitas as $visita)
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <a href="{{route('visita.edit', $visita->id)}}" class="btn btn-sm btn-alt-secondary"
+                                                               data-bs-toggle="tooltip"
+                                                               title="Edit">
+                                                                <i class="fa fa-pencil-alt"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $visita->created_at->format('d/m/Y H:i:s') }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td class="text-center" colspan="2">Nenhuma visita registrada
+                                                            ainda.
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="2">{{ $visitas->appends($_GET)->links() }}</td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-12 mb-4 ml-2">
+                                        <a href="{{ route('visita.create', $desabrigado->id) }}" class="btn btn-secondary" role="button">
+                                            Nova visita
+                                        </a>
+                                    </div>
+                            </div>
                         </div>
+                        {{-- FINAL DA TAB VISITAS --}}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
