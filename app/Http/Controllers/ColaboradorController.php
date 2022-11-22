@@ -70,7 +70,7 @@ class ColaboradorController extends Controller
         $endereco = Endereco::where('cep', $request->cep)->first();
         if (isset($endereco)) {
             $cargos = $this->cargos;
-            if(is_null($colaborador)) {
+            if(is_null($colaborador->user_id)) {
                 return view('instituicao.colaborador.dados', compact('endereco', 'cargos'));
             } else {
                 return view('instituicao.colaborador.dados', compact(['endereco', 'cargos', 'colaborador']));
@@ -83,7 +83,7 @@ class ColaboradorController extends Controller
                 'Praça',
                 'Travessa'
             ];
-            if(is_null($colaborador)) {
+            if(is_null($colaborador->user_id)) {
                 return view('instituicao.colaborador.endereco', compact(['cep', 'tiposLogradouros',]));
             } else {
                 return view('instituicao.colaborador.endereco', compact(['cep', 'tiposLogradouros', 'colaborador']));

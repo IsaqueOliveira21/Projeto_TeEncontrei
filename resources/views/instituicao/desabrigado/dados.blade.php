@@ -129,6 +129,7 @@
                                 </form>
                             </div>
                             {{-- TAB VISITAS --}}
+                            @if(isset($desabrigado))
                             <div class="tab-pane fade fade-left"
                                  id="btabs-animated-slideleft-visitas"
                                  role="tabpanel" aria-labelledby="btabs-animated-slideleft-visitas-tab">
@@ -178,6 +179,7 @@
                                         </a>
                                     </div>
                             </div>
+                                @endif
                         </div>
                         {{-- FINAL DA TAB VISITAS --}}
                     </div>
