@@ -76,7 +76,7 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
         Route::post('store', 'store')->name('visita.store');
         Route::get('edit/{visitaCabecalho}', 'edit')->name('visita.edit');
         Route::put('update/{visitaCabecalho}', 'update')->name('visita.update');
-        Route::get('delete/{visitaCabecalho}', 'delete')->name('visita.delete');
+        Route::get('delete', 'delete')->name('visita.delete');
         Route::get('detalhe/delete', 'deleteDetalhe')->name('visita.detalhe.delete');
     });
 });

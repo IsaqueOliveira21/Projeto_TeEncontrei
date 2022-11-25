@@ -123,4 +123,11 @@ class VisitaController extends Controller
         $detalhe->delete();
         return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Evento excluído com sucesso!']);
     }
+
+    public function delete(Request $request)
+    {
+        $cabecalho = VisitaCabecalho::find($request->id);
+        $cabecalho->delete();
+        return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Visita excluída com sucesso!']);
+    }
 }

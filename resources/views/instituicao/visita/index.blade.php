@@ -61,7 +61,7 @@
                                         </a>
                                     </div>
                                     <div class="btn-group">
-                                        <a href="{{ route('visita.delete', $visita->id) }}"
+                                        <a href="#" onclick="deletarVisita({{$visita->id}})"
                                            class="btn btn-sm btn-alt-danger"
                                            data-bs-toggle="tooltip"
                                            title="Deletar">
@@ -89,4 +89,11 @@
             </div>
         </div>
     </div>
+    <script>
+        function deletarVisita(id){
+            if(confirm('Deseja realmente remover esse evento?')){
+                window.location.href='{{ route('visita.delete') }}?id=' + id;
+            }
+        }
+    </script>
 @endsection

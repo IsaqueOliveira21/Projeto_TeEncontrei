@@ -133,6 +133,33 @@ class ColaboradorController extends Controller
                     return redirect()->route('colaborador.index')->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
                 }
             }
+        } else {
+            if ($request->password != $request->confirm_password) {
+                return redirect()->back()->with(['tipo' => 'warning', 'mensagem' => 'As senhas não conferem']);
+            } else {
+                DB::beginTransaction();
+                try {
+                    $user = User::create([
+                        'name' => $request->name,
+                        'last_name' => $request->last_name,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password),
+                        'photo' => null,
+                    ]);
+                    $user->colaborador()->create([
+                        'instituicao_id' => Auth::user()->colaborador->instituicao_id,
+                        'endereco_id' => $request->endereco_id,
+                        'numero_endereco' => $request->numero_endereco,
+                        'cargo' => $request->cargo,
+                        'data_nascimento' => Carbon::createFromFormat('d/m/Y', $request->data_nascimento)->format('Y-m-d'),
+                    ]);
+                    DB::commit();
+                    return redirect()->route('colaborador.index')->with(['tipo' => 'success', 'mensagem' => 'Colaborador cadastrado com sucesso!']);
+                } catch (Exception $e) {
+                    DB::rollBack();
+                    return redirect()->route('colaborador.index')->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
+                }
+            }
         }
     }
 
