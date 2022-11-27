@@ -104,7 +104,9 @@
                                                 <i class="far fa fa-save me-1"></i>Salvar
                                             </button>
                                             <a href="{{route('visita.create')}}"
-                                               class="btn btn-secondary btn-outline-info">Novo</a>
+                                               class="btn btn-lg btn-primary">
+                                                <i class="fa fa-plus me-1"></i>Novo
+                                            </a>
                                             <a href="{{route('visita.index')}}"
                                                class="btn btn-lg btn-outline-info">Voltar</a>
                                         </div>

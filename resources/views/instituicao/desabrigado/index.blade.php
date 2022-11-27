@@ -45,14 +45,14 @@
                             <tr>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                                data-bs-toggle="tooltip"
-                                                title="Delete">
+                                        <a href="#" onclick="deleteDesabrigado({{$desabrigado->id}})" class="btn btn-sm btn-alt-secondary"
+                                                data-bs-toggle="tooltip" role="button"
+                                                title="Deletar">
                                             <i class="fa fa-times"></i>
-                                        </button>
+                                        </a>
                                         <a href="{{route('desabrigado.edit', $desabrigado->id)}}" class="btn btn-sm btn-alt-secondary"
                                            data-bs-toggle="tooltip"
-                                           title="Edit">
+                                           title="Editar">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
                                     </div>
@@ -80,4 +80,11 @@
             </div>
         </div>
     </div>
+    <script>
+        function deleteDesabrigado(id) {
+            if(confirm('Deseja realmente remover este desabrigado?')) {
+                window.location.href = '{{route('desabrigado.delete')}}?id=' + id;
+            }
+        }
+    </script>
 @endsection

@@ -67,4 +67,14 @@ class DesabrigadoController extends Controller
             return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => 'Não foi possível atualizar os dados!']);
         }
     }
+
+    public function delete(Request $request) {
+        try {
+            $desabrigado = Desabrigado::find($request->id);
+            $desabrigado->delete();
+            return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Desabrigado removido com sucesso!']);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
+        }
+    }
 }

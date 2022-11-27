@@ -122,6 +122,12 @@
                                             <button type="submit" class="btn btn-lg btn-success">
                                                 <i class="far fa fa-save me-1"></i> Salvar
                                             </button>
+                                            @if(isset($desabrigado))
+                                                <a href="{{route('desabrigado.create')}}"
+                                                   class="btn btn-lg btn-primary">
+                                                    <i class="fa fa-plus me-1"></i>Novo
+                                                </a>
+                                            @endif
                                             <a href="{{route('desabrigado.index')}}"
                                                class="btn btn-lg btn-outline-info">Voltar</a>
                                         </div>
