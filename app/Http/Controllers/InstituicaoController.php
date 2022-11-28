@@ -54,4 +54,9 @@ class InstituicaoController extends Controller
             return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }
     }
+
+    public function delete(Request $request) {
+        $instituicao = Instituicao::find($request->id)->delete();
+        return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Instituição removida com sucesso!']);
+    }
 }

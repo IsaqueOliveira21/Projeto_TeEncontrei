@@ -32,6 +32,7 @@ Route::prefix('administracao')->middleware('auth')->group(function () {
         Route::get('/{instituicao?}', 'buscarEndereco')->name('instituicao.buscarEndereco');
         Route::post('store', 'store')->name('instituicao.store');
         Route::put('update/{instituicao}', 'update')->name('instituicao.update');
+        Route::get('delete/instituicao', 'delete')->name('instituicao.delete');
     });
 
     Route::prefix('endereco')->controller(EnderecoController::class)->group(function() {

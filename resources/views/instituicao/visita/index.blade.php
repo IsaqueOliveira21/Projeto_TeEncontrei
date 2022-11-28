@@ -61,9 +61,11 @@
                                         </a>
                                     </div>
                                     <div class="btn-group">
-                                        <a href="#" onclick="deletarVisita({{$visita->id}})"
+                                        <a href="#"
                                            class="btn btn-sm btn-alt-danger"
-                                           data-bs-toggle="tooltip"
+                                           data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="{{$visita->id}}"
+                                           data-item="{{$visita->desabrigado->nome. ' em ' . \Carbon\Carbon::parse($visita->created_at)->format('d/m/Y H:i:s')}}"
+                                           data-url="delete"
                                            title="Deletar">
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -89,11 +91,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function deletarVisita(id){
-            if(confirm('Deseja realmente remover esse evento?')){
-                window.location.href='{{ route('visita.delete') }}?id=' + id;
-            }
-        }
-    </script>
 @endsection

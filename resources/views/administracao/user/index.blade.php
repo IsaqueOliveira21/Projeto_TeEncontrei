@@ -55,7 +55,7 @@
                                             </a>
                                         </div>
                                         <div class="col-6">
-                                            <a href="#" onclick="deletarUsuario({{$user->id}})">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="{{$user->id}}" data-item="{{$user->name.' '.$user->last_name}}" data-url="delete">
                                                 <div
                                                     class="item item-circle mb-3 mx-auto border border-primary border-2">
                                                     <i class="far fa-fw fa-trash-alt text-primary"></i>

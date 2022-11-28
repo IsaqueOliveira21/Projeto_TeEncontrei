@@ -45,10 +45,13 @@
                             <tr>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="#" onclick="deleteDesabrigado({{$desabrigado->id}})" class="btn btn-sm btn-alt-secondary"
-                                                data-bs-toggle="tooltip" role="button"
-                                                title="Deletar">
-                                            <i class="fa fa-times"></i>
+                                        <a href="#" class="btn btn-sm btn-alt-danger"
+                                           data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="{{$desabrigado->id}}"
+                                           data-item="{{$desabrigado->nome.' '.$desabrigado->sobrenome}}"
+                                           data-url="delete"
+                                           role="button"
+                                           title="Deletar">
+                                            <i class="fa fa-trash"></i>
                                         </a>
                                         <a href="{{route('desabrigado.edit', $desabrigado->id)}}" class="btn btn-sm btn-alt-secondary"
                                            data-bs-toggle="tooltip"

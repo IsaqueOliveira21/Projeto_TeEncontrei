@@ -189,9 +189,9 @@ class UserController extends Controller
     public function redefinirSenha(User $user): RedirectResponse
     {
         try {
-            $user->password = bcrypt('acheiaqui123');
+            $user->password = bcrypt('teencontrei123');
             $user->save();
-            return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Senha do usuário redefinidia para "acheiaqui123"']);
+            return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Senha do usuário redefinidia para "teencontrei123"']);
         } catch (Exception $e) {
             return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }

@@ -237,6 +237,29 @@
         </div>
     </footer>
     <!-- END Footer -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modal-block-small" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="block block-rounded block-themed block-transparent mb-0">
+                    <div class="block-header bg-danger">
+                        <h3 class="block-title">Você tem certeza que deseja excluir?</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-fw fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <p id="nomeItem"></p>
+                    </div>
+                    <div class="block-content block-content-full text-end bg-body">
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Não</button>
+                        <a href="#" id="btnModalDelete" class="btn btn-sm btn-danger">Sim</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- END Page Container -->
 
@@ -262,6 +285,15 @@
         });
         @endif
         $("#cep").mask("99999-999", {placeholder:"0"});
+        $('#modalDelete').on('show.bs.modal', function (event) {
+            let params = $(event.relatedTarget)
+            let id = params.data('id')
+            let item = params.data('item')
+            let url = params.data('url')
+            let modal = $(this)
+            modal.find('#nomeItem').html(item);
+            modal.find('#btnModalDelete').attr('href', url + '?id=' + id);
+        })
     });
 </script>
 </body>

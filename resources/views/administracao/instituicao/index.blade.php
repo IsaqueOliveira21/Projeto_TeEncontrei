@@ -44,11 +44,14 @@
                             <tr>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary"
-                                                data-bs-toggle="tooltip"
-                                                title="Delete">
-                                            <i class="fa fa-times"></i>
-                                        </button>
+                                        <a href="#"
+                                           class="btn btn-sm btn-alt-danger"
+                                           data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="{{$instituicao->id}}"
+                                           data-item="{{$instituicao->nomeclatura}}"
+                                           data-url="delete/instituicao"
+                                           title="Deletar">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                         <a href="{{ route('instituicao.edit', $instituicao->id) }}" class="btn btn-sm btn-alt-secondary"
                                                 data-bs-toggle="tooltip"
                                                 title="Edit">

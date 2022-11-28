@@ -82,7 +82,7 @@
                                         <button type="submit" class="btn btn-lg btn-success">
                                             <i class="far fa fa-save me-1"></i>Salvar
                                         </button>
-                                        <a href="{{route('endereco.index')}}"
+                                        <a href="{{route('colaborador.index')}}"
                                            class="btn btn-lg btn-outline-info">Voltar</a>
                                     </div>
                                 </div>

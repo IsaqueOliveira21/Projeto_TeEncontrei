@@ -80,12 +80,15 @@
                                                 @foreach($visitaCabecalho->detalhes as $detalhe)
                                                     <tr>
                                                         <td class="text-center">
-                                                                <a href="#" onclick="deletarDetalhe({{ $detalhe->id }})"
-                                                                   class="btn btn-sm btn-alt-danger"
-                                                                   data-bs-toggle="tooltip"
-                                                                   title="Deletar">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </a>
+                                                            <a href="#"
+                                                               class="btn btn-sm btn-alt-danger"
+                                                               data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                                               data-id="{{$detalhe->id}}"
+                                                               data-item="{{$detalhe->tipo.' em '.$detalhe->created_at->format('d/m/Y H:i:s')}}"
+                                                               data-url="{{route('visita.detalhe.delete')}}"
+                                                               title="Deletar">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
                                                         </td>
                                                         <td>{{ "{$detalhe->colaborador->user->name} {$detalhe->colaborador->user->last_name}" }}</td>
                                                         <td>{{ $detalhe->tipo }}</td>
@@ -119,11 +122,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function deletarDetalhe(id){
-            if(confirm('Deseja realmente remover esse evento?')){
-                window.location.href='{{ route('visita.detalhe.delete') }}?id=' + id;
-            }
-        }
-    </script>
 @endsection

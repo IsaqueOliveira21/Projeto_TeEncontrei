@@ -46,9 +46,10 @@
                             <tr>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="#" onclick="deletarEndereco({{$endereco->id}})">
-                                            <div class="btn btn-sm btn-alt-secondary">
-                                                <i class="far fa-fw fa-trash-alt"></i>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDelete" data-id="{{$endereco->id}}" data-item="{{$endereco->tipo_logradouro.' '.$endereco->logradouro.' / '.$endereco->cidade.' / '.$endereco->uf}}"
+                                        data-url="delete">
+                                            <div class="btn btn-sm btn-alt-danger">
+                                                <i class="fa fa-trash"></i>
                                             </div>
                                         </a>
                                         <a href="{{route('endereco.edit', $endereco->id)}}" class="btn btn-sm btn-alt-secondary"

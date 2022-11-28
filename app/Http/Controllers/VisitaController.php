@@ -119,15 +119,13 @@ class VisitaController extends Controller
 
     public function deleteDetalhe(Request $request)
     {
-        $detalhe = VisitaDetalhe::find($request->id);
-        $detalhe->delete();
+        $detalhe = VisitaDetalhe::find($request->id)->delete();
         return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Evento excluído com sucesso!']);
     }
 
     public function delete(Request $request)
     {
-        $cabecalho = VisitaCabecalho::find($request->id);
-        $cabecalho->delete();
+        $cabecalho = VisitaCabecalho::find($request->id)->delete();
         return redirect()->back()->with(['tipo' => 'success', 'mensagem' => 'Visita excluída com sucesso!']);
     }
 }
