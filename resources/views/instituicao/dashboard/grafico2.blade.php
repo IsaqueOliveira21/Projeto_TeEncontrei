@@ -30,6 +30,7 @@
         series: [{
             name: 'DOCUMENTAÇÃO',
             colorByPoint: true,
+            colors: ['#ED561B','#058DC7'],
             data: [
                 @foreach($graficos['graficos2'] as $categoria => $valor)
                     {

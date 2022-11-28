@@ -35,7 +35,7 @@
             }
         },
         series: [{
-            name: 'QTD',
+            name: 'QUANTIDADE',
             data: [
                 @foreach($graficos['grafico1'] as $valor)
                     {{$valor}},
