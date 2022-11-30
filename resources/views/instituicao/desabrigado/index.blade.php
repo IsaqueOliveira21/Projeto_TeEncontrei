@@ -33,11 +33,10 @@
                     <table class="table table-vcenter table-striped table-hover">
                         <thead>
                         <tr class="bg-body-dark">
-                            <th class="text-center" style="width: 5%;">#</th>
+                            <th class="text-center" style="width: 20%;">#</th>
                             <th style="width: 30%">Nome</th>
                             <th style="width: 30%">CPF</th>
                             <th class="d-none d-sm-table-cell text-center" style="width: 20%;">Cadastrado em</th>
-                            <th class="text-center" style="width: 10%">Dados</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,14 +57,16 @@
                                            title="Editar">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
+                                        <a href="{{route('desabrigado.ficha', $desabrigado->id)}}" target="_blank" class="btn btn-sm btn-alt-primary"
+                                           data-bs-toggle="tooltip"
+                                           title="Dados">
+                                            <i class="far fa-file-pdf"></i>
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="fw-semibold">{{$desabrigado->nome.' '.$desabrigado->sobrenome}}</td>
                                 <td class="fw-semibold">{{$desabrigado->cpf}}</td>
                                 <td class="d-none d-sm-table-cell text-center">{{$desabrigado->created_at->format('d/m/Y H:i:s')}}</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-primary" role="button">Dados</a>
-                                </td>
                             </tr>
                         @empty
                             <tr>

@@ -70,6 +70,7 @@ Route::prefix('instituicao')->middleware('auth')->group(function () {
         Route::get('edit/{desabrigado}', 'edit')->name('desabrigado.edit');
         Route::put('update/{desabrigado}', 'update')->name('desabrigado.update');
         Route::get('delete', 'delete')->name('desabrigado.delete');
+        Route::get('ficha/{desabrigado}', 'ficha')->name('desabrigado.ficha');
     });
 
     Route::prefix('visita')->controller(VisitaController::class)->group(function () {

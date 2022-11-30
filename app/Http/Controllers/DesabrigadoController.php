@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desabrigado;
+use App\Models\Instituicao;
 use App\Models\VisitaCabecalho;
 use App\Models\VisitaDetalhe;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,5 +78,14 @@ class DesabrigadoController extends Controller
         } catch (Exception $e) {
             return redirect()->back()->with(['tipo' => 'danger', 'mensagem' => $e->getMessage()]);
         }
+    }
+
+    public function ficha(Desabrigado $desabrigado){
+        $ficha = PDF::loadView('instituicao.desabrigado.ficha', compact('desabrigado'))
+            ->setPaper('a4', 'portrait')
+            //->setPaper('a4', 'landscape')
+            ->setOptions(['dpi' => 150, "enable_php" => true])
+            ->setWarnings(true);
+        return $ficha->stream("Ficha do desabrigado {$desabrigado->nome} {$desabrigado->sobrenome}.pdf");
     }
 }
