@@ -17,7 +17,15 @@ class DashboardController extends Controller
      */
     public function administracao(): View|Factory|Application
     {
-        return view('administracao.dashboard');
+        $graficos = [];
+
+        $graficos['grafico1']['ESTE ANO'] = DB::table('instituicoes')
+            ->whereRaw('created_at BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR)) AND DATE(NOW())')
+            ->count();
+        $graficos['grafico1']['ANO ANTERIOR'] = DB::table('visitas_cabecalhos')
+            ->whereRaw('created_at BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 2 YEAR)) AND DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR))')
+            ->count();
+        return view('administracao.dashboard.index', compact('graficos'));
     }
 
     /**

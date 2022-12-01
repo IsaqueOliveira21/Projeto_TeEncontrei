@@ -29,64 +29,55 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-content">
-                <div class="block-content">
-                    <table class="table table-vcenter table-striped table-hover">
-                        <thead>
-                        <tr class="bg-body-dark">
-                            <th class="text-center" style="width: 5%;">#</th>
-                            <th style="width: 60%">Nome</th>
-                            <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Cargo</th>
-                            <th class="d-none d-sm-table-cell text-center" style="width: 10%;">Status</th>
-                            <th class="text-center" style="width: 15%">Registrada em</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse($colaboradores as $colaborador)
-                            <tr>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        @if($colaborador->ativo)
-                                            <a href="{{ route('colaborador.status', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
-                                                    data-bs-toggle="tooltip"
-                                                    title="Desativar">
-                                                <i class="fa fa-user-slash"></i>
+                <div class="row">
+                    @forelse($colaboradores as $colaborador)
+                        <div class="col-md-3 col-xs-1">
+                            <a class="block block-rounded text-center" href="javascript:void(0)">
+                                <div
+                                    class="block-content block-content-full block-content-sm bg-primary border-bottom border-white-op">
+                                    <p class="fw-semibold text-white mb-0">{{Str::limit("{$colaborador->name} {$colaborador->last_name}", 15, '...')}}</p>
+                                </div>
+                                <div class="block-content block-content-full bg-primary">
+                                    <img class="img-avatar img-avatar-thumb img-avatar-rounded"
+                                         src="" alt="">
+                                </div>
+                                <div class="block-content block-content-full">
+                                    <div class="row g-sm">
+                                        <div class="col-6">
+                                            <a href="{{route('colaborador.edit', $colaborador->id)}}">
+                                                <div
+                                                    class="item item-circle mb-3 mx-auto border border-primary border-2">
+                                                    <i class="si si-pencil text-primary"></i>
+                                                </div>
+                                                <p class="fs-sm fw-medium text-muted mb-0 text-center">
+                                                    Editar
+                                                </p>
                                             </a>
-                                        @else
-                                            <a href="{{ route('colaborador.status', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
-                                               data-bs-toggle="tooltip"
-                                               title="Ativar">
-                                                <i class="fa fa-user"></i>
-                                            </a>
-                                        @endif
-                                        <a href="{{ route('colaborador.edit', $colaborador->id) }}" class="btn btn-sm btn-alt-secondary"
-                                                data-bs-toggle="tooltip"
-                                                title="Editar">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="btn-group">
+                                                <div class="col-6">
+                                                    <a href="{{route('colaborador.status', $colaborador->id)}}">
+                                                        <div
+                                                            class="item item-circle mb-3 mx-auto border border-primary border-2">
+                                                            <i class="{{$colaborador->ativo ? 'fa fa-user-slash' : 'fa fa-user'}} text-primary"></i>
+                                                        </div>
+                                                        <p class="fs-sm fw-medium text-muted mb-0 text-center">
+                                                            {{$colaborador->ativo ? 'Desativar' : 'Ativar'}}
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </td>
-                                {{--<td class="fw-semibold">{{"{$colaborador->user->name} {$colaborador->user->last_name}"}}</td>
-                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->cargo}}</td>
-                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->ativo == 1 ? 'Ativo' : 'Inativo'}}</td>
-                                <td class="text-center">{{$colaborador->created_at->format('d/m/Y H:i:s')}}</td>--}}
-
-                                <td class="fw-semibold">{{"{$colaborador->name} {$colaborador->last_name}"}}</td>
-                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->cargo}}</td>
-                                <td class="d-none d-sm-table-cell text-center">{{$colaborador->ativo == 1 ? 'Ativo' : 'Inativo'}}</td>
-                                <td class="text-center">{{\Carbon\Carbon::parse($colaborador->created_at)->format('d/m/Y H:i:s')}}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td class="text-center" colspan="5">Sem registros para exibir</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="4">{{ $colaboradores->appends($_GET)->links() }}</td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                                </div>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="col-12 mb-3 text-center">
+                            Nenhum usuário encontrado
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

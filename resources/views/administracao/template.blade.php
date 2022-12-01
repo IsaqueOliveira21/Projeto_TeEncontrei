@@ -274,6 +274,7 @@
 <script src="{{ asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/jquery.maskedinput/jquery.maskedinput.min.js') }}"></script>
 <script src="{{asset('assets/js/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script> <!-- Highcharts -->
 <script>Dashmix.helpersOnLoad(['jq-notify', 'jq-select2']);</script>
 <script>
     $(document).ready(function () {
@@ -296,5 +297,8 @@
         })
     });
 </script>
+@if(Route::currentRouteName() == 'administracao.dashboard')
+    @include('administracao.dashboard.grafico1')
+@endif
 </body>
 </html>
