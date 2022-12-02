@@ -1,4 +1,4 @@
-@extends('administracao/template')
+@extends('administracao.template')
 @section('titulo')
     DASHBOARD
 @endsection
@@ -14,7 +14,8 @@
         <div class="content">
             <div class="block block-rounded">
                 <div class="block-content">
-                    <p>OS GRÁFICOS SERÃO MOSTRADOS AQUI!!!</p>
+                    <div id="grafico1">
+                    </div>
                 </div>
             </div>
         </div>
