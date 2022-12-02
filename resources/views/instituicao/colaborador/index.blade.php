@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="block-content block-content-full bg-primary">
                                     <img class="img-avatar img-avatar-thumb img-avatar-rounded"
-                                         src="" alt="">
+                                         src="{{isset($colaborador->photo) ? asset("storage/photos/{$colaborador->photo}") : asset('assets/media/avatars/avatar15.jpg')}}" alt="">
                                 </div>
                                 <div class="block-content block-content-full">
                                     <div class="row g-sm">
@@ -47,7 +47,7 @@
                                             <a href="{{route('colaborador.edit', $colaborador->id)}}">
                                                 <div
                                                     class="item item-circle mb-3 mx-auto border border-primary border-2">
-                                                    <i class="si si-pencil text-primary"></i>
+                                                    <i class="fa fa-user-edit text-primary text-center"></i>
                                                 </div>
                                                 <p class="fs-sm fw-medium text-muted mb-0 text-center">
                                                     Editar
@@ -58,9 +58,8 @@
                                             <div class="btn-group">
                                                 <div class="col-6">
                                                     <a href="{{route('colaborador.status', $colaborador->id)}}">
-                                                        <div
-                                                            class="item item-circle mb-3 mx-auto border border-primary border-2">
-                                                            <i class="{{$colaborador->ativo ? 'fa fa-user-slash' : 'fa fa-user'}} text-primary"></i>
+                                                        <div class="item item-circle mb-3 mx-auto border border-primary border-2">
+                                                            <i class="{{$colaborador->ativo ? 'fa fa-user-slash' : 'fa fa-user'}} text-primary text-center"></i>
                                                         </div>
                                                         <p class="fs-sm fw-medium text-muted mb-0 text-center">
                                                             {{$colaborador->ativo ? 'Desativar' : 'Ativar'}}
