@@ -299,6 +299,7 @@
 </script>
 @if(Route::currentRouteName() == 'administracao.dashboard')
     @include('administracao.dashboard.grafico1')
+    @include('administracao.dashboard.grafico2')
 @endif
 </body>
 </html>

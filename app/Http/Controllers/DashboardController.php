@@ -25,6 +25,34 @@ class DashboardController extends Controller
         $graficos['grafico1']['ANO ANTERIOR'] = DB::table('instituicoes')
             ->whereRaw('created_at BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 2 YEAR)) AND DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR))')
             ->count();
+
+        $meses = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro',
+        ];
+
+        $queryAtividadesUltimoAno = DB::table('visitas_cabecalhos')
+            ->selectRaw('MONTH(visitas_cabecalhos.created_at) as mes ,instituicoes.nomeclatura, COUNT(*) as qtd')
+            ->join('instituicoes', 'visitas_cabecalhos.instituicao_id', '=', 'instituicoes.id')
+            ->whereRaw('visitas_cabecalhos.created_at BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR)) AND DATE(NOW())')
+            ->groupBy('mes', 'instituicoes.nomeclatura')
+            ->orderBy('mes', 'desc')
+            ->get();
+
+        foreach($queryAtividadesUltimoAno as $linha) {
+            $graficos['grafico2'][$meses[$linha->mes - 1]] = $linha->qtd;
+        }
+        dd($queryAtividadesUltimoAno);
         return view('administracao.dashboard.index', compact('graficos'));
     }
 

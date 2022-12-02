@@ -18,6 +18,12 @@
                     </div>
                 </div>
             </div>
+            <div class="block block-rounded">
+                <div class="block-content">
+                    <div id="grafico2">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
