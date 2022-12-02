@@ -1,3 +1,1 @@
-colocar na pagina de listagem de colaboradores (no src da img):
-
-{{!is_null($colaborador->photo) ? asset("storage/photos/{$colaborador->photo}") : asset('assets/media/avatars/avatar15.jpg')}}
+LEMBRAR DE CORRIGIR O CONTROLLER DE CADASTRO DE COLABORADORES NO PROJETO PRINCIPAL!!!
