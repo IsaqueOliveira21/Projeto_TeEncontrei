@@ -33,7 +33,7 @@
     <!-- Main Container -->
     <main id="main-container">
         <!-- Page Content -->
-        <div class="bg-image" style="background-image: url('{{asset('assets/media/photos/photo19@2x.jpg')}}');">
+        <div class="bg-image" style="background-image: url('{{asset('assets/media/photos/photo15@2x.jpg')}}');">
             <div class="row g-0 justify-content-center bg-primary-dark-op">
                 <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
                     <!-- Sign In Block -->

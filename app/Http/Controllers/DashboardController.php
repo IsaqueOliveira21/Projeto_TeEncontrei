@@ -17,6 +17,10 @@ class DashboardController extends Controller
      */
     public function administracao(): View|Factory|Application
     {
+        $instituicoes = DB::table('instituicoes')->count();
+        $usuarios = DB::table('users')->count();
+        $desabrigados = DB::table('desabrigados')->count();
+
         $graficos = [];
 
         $graficos['grafico1']['ESTE ANO'] = DB::table('instituicoes')
@@ -40,9 +44,8 @@ class DashboardController extends Controller
             'Novembro',
             'Dezembro',
         ];
-
         $queryAtividadesUltimoAno = DB::table('visitas_cabecalhos')
-            ->selectRaw('MONTH(visitas_cabecalhos.created_at) as mes ,instituicoes.nomeclatura, COUNT(*) as qtd')
+            ->selectRaw('MONTH(visitas_cabecalhos.created_at) as mes ,instituicoes.nomeclatura as nomeclatura, COUNT(*) as qtd')
             ->join('instituicoes', 'visitas_cabecalhos.instituicao_id', '=', 'instituicoes.id')
             ->whereRaw('visitas_cabecalhos.created_at BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 1 YEAR)) AND DATE(NOW())')
             ->groupBy('mes', 'instituicoes.nomeclatura')
@@ -50,10 +53,19 @@ class DashboardController extends Controller
             ->get();
 
         foreach($queryAtividadesUltimoAno as $linha) {
-            $graficos['grafico2'][$meses[$linha->mes - 1]] = $linha->qtd;
+            //$graficos['grafico2'][$meses[$linha->mes - 1]][$linha->nomeclatura] = $linha->qtd;
+            //$graficos['grafico2'][$meses[$linha->mes - 1]][] = [$linha->nomeclatura => $linha->qtd];
+            $graficos['grafico2'][$linha->nomeclatura][] = $linha->qtd;
         }
-        dd($queryAtividadesUltimoAno);
-        return view('administracao.dashboard.index', compact('graficos'));
+        $categorias = [];
+        foreach($queryAtividadesUltimoAno as $linha) {
+            if(!in_array($meses[$linha->mes - 1], $categorias)) {
+                $categorias[] = $meses[$linha->mes - 1];
+            }
+        }
+        //dd($categorias);
+        //dd($graficos['grafico2']);
+        return view('administracao.dashboard.index', compact(['graficos', 'instituicoes', 'usuarios', 'desabrigados', 'categorias']));
     }
 
     /**
@@ -61,6 +73,16 @@ class DashboardController extends Controller
      */
     public function instituicao(): View|Factory|Application
     {
+        $visitas = DB::table('visitas_cabecalhos')
+            ->where('instituicao_id', Auth::user()->colaborador->instituicao_id)
+            ->count();
+
+        $colaboradores = DB::table('colaboradores')
+            ->where('instituicao_id', Auth::user()->colaborador->instituicao_id)
+            ->count();
+
+        $desabrigados = DB::table('desabrigados')->count();
+
         $graficos = [];
 
         $graficos['grafico1']['SEMANA ATUAL'] = DB::table('visitas_cabecalhos')
@@ -119,6 +141,6 @@ class DashboardController extends Controller
         foreach($queryQtdUltimoAno as $linha) {
             $graficos['grafico3'][$meses[$linha->mes - 1]] = $linha->qtd;
         }
-        return view('instituicao.dashboard.index', compact('graficos'));
+        return view('instituicao.dashboard.index', compact(['graficos', 'visitas', 'colaboradores', 'desabrigados']));
     }
 }

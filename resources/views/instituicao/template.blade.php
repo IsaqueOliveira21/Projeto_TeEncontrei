@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>::TeEncontrei - Instituição::</title>
+    <title>TeEncontrei - Instituição</title>
 
     <meta name="description"
           content="">
@@ -28,6 +28,7 @@
     <!-- END Stylesheets -->
 </head>
 <body>
+<div id="page-loader" class="show"></div>
 <div id="page-container"
      class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
 
@@ -136,7 +137,7 @@
                            aria-expanded="true" href="#">
                             <i class="nav-main-link-icon fa fa-hotel"></i>
                             <span class="nav-main-link-name">Visitas</span>
-                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\VisitaCabecalho::count() }}</span>
+                            <span class="nav-main-link-badge badge rounded-pill bg-primary">{{ \App\Models\VisitaCabecalho::where('instituicao_id', \Illuminate\Support\Facades\Auth::user()->colaborador->instituicao_id)->count() }}</span>
                         </a>
                         <ul class="nav-main-submenu">
                             <li class="nav-main-item">
